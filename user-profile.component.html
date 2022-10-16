@@ -1,0 +1,68 @@
+<br><br><br><br><br><br><br><br><br><br>
+<form #userForm="ngForm" (ngSubmit)="onFormSubmit(userForm)" [appMatchPassword]="['password','confirmPassword']">
+
+    <div class="bg-tpkwhite text-secondary mt-15 m-auto w-1/2 h-18/9 rounded-md shadow-lg shadow-primary">
+
+        <h1 class=" text-xl md:text-2xl xl:text-4xl text-secondary font-bold underline underline-offset-8 text-center pt-4">My Profile</h1>
+
+        <div class="flex mx-12">
+            <img src="assets/img/avatar2.png" alt="Avatar" class="avatar"><br>&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;
+
+            <input style="border:1px solid #7697a8;" class="border-2 border-b-secondary h-12 w-12 rounded-3xl flex items-center justify-center text-grey2 mr-2 mt-3" type="button" id="loadFileXml" value="+" accept="image/png, image/jpeg" onclick="document.getElementById('file').click();"
+            /><input type="file" style="display:none;" id="file" name="file" />
+        </div><br>
+
+        <div class="flex w-full justify-start">
+            <label for="role"></label><input id="role" type="text" style="text-align:center" class="input-role bg-transparent placeholder:italic" placeholder="role" value="{{user.role.name}}" size="10" #role="ngModel" [(ngModel)]="user.username" required="required"><br>
+        </div>
+        <div>
+
+            <p *ngIf="username.errors?.['required'] && username.dirty" style="text-align:start" class="role-message-erreur">role required</p>
+            <p *ngIf="username.errors?.['required'] && username.dirty" style="text-align:start" class="username-message-erreur text-sm italic">username required</p>
+
+            <div class="flex w-full justify-center">
+                <label for="username"></label><input style="text-align:left" type="text" placeholder="usersname" value="{{user.username}}" class="input-username form-control bg-transparent placeholder:italic" id="username" name="username" size="45" #username="ngModel"
+                    [(ngModel)]="user.username" required="required" pattern="^[a-zA-Z0-9àéèç]{1,25}$" />
+            </div><br>
+
+            <div class="flex w-full justify-center">
+                <label for="email"></label><input style="text-align:left" type="text" id="email" placeholder="email" value="{{user.email}}" size="45" #email="ngModel" [(ngModel)]="user.email" class="input-email form-control bg-transparent placeholder:italic"
+                    required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+            </div><br>
+
+            <p *ngIf="!email.errors?.['required'] && email.invalid && email.dirty" class="email-message-erreur text-sm italic">email invalid</p>
+            <p *ngIf="email.errors?.['required'] && email.dirty" style="text-align:center" class="email-message-erreur text-sm italic">email required</p>
+
+            <div class="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-primary">
+
+                <label for="firstname"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input style="text-align:start" type="text" placeholder="firstname" value="{{user.firstname}}" class="form-control custom bg-transparent placeholder:italic" id="firstname" size="45" name="lirstname" minlength="8" #firstname="ngModel" [(ngModel)]="user.firstname"
+                    required="required">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <label for="lastname"></label><input style="text-align:start" type="text" placeholder="lastname" value="{{user.lastname}}" class="form-control custom bg-transparent placeholder:italic " id="lastname" size="45" name="lastname" minlength="8"
+                    #lastname="ngModel" [(ngModel)]="user.lastname" required="required" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <p *ngIf="firstname.errors?.['required'] && firstname.dirty" style="text-align:start" class="firstname-message-erreur text-sm italic">firstname required &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    lastname required</p>
+
+                <label for="password"></label><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input style="text-align:start" type="password" placeholder="password" value="{{user.password}}" class="form-control custom bg-transparent placeholder:italic " id="password" size="45" #password="ngModel" [(ngModel)]="user.password" name="Password" minlength="8"
+                    required="required" pattern="^[a-zA-Z0-9àéèç]{1,25}$">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <label for="confir-password"></label><input style="text-align:start" type="password" placeholder="confirm-password" value="{{user.password}}" class="form-control custom bg-transparent placeholder:italic" id="confirm-password" size="45"
+                    #confirmPassword="ngModel" [(ngModel)]="verifPassword" name="confir-password" minlength="8" required="required" pattern="^[a-zA-Z0-9àéèç]{1,25}$">
+
+                <p *ngIf="!password.errors?.['required'] && password.dirty && confirmPassword.dirty && confirmPassword.errors?.['matching']" style="text-align:start" class="password-message-erreur text-sm italic">Passwords doesn't match</p>
+                <p *ngIf="password.errors?.['required'] && password.dirty" style="text-align:start" class="password-message-erreur text-sm italic">password required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    confir-password required</p><br><br><br>
+
+                <div class="flex w-full justify-center">
+                    <input class="submit" value="update" type="submit" onclick="onFormSubmit(userForm)" onClick="javascript:alert('profile data save.')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input class="delete" value="delete" type="reset" onclick="resetForm(userForm)" onClick="javascript:alert('profile data deleted.')">
+                </div><br>
+            </div>
+        </div>
+    </div>
+</form>
